@@ -6,6 +6,8 @@ use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+Route::resource('users', ProfileController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });

@@ -29,7 +29,28 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
         Produto::create($request->all());
-        return redirect()->route('produtos.index');
+
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',]);
+    
+        $produto = new Produto();
+        $produto->nome = $request->nome;
+        $produto->descricao = $request->descricao;
+        
+        if ($request->hasFile('imagem')) {
+            $imagem = $request->file('imagem');
+            
+            $caminhoImagem = $imagem->store('produtos', 'public');
+            $produto->imagem = $caminhoImagem;
+        }
+        
+        $produto->save();
+    
+        return redirect()->route('produtos.index')->with('success', 'Produto criado com sucesso!');
+    
+        
     }
 
     /**
