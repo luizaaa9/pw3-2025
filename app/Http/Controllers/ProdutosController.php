@@ -12,7 +12,9 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        return view('produtos.index');
+        $produtos = Produto::all();        
+
+        return view('produtos.index' , compact('produtos'));
     }
 
     /**
@@ -33,6 +35,7 @@ class ProdutosController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'descricao' => 'required|string',
+            'preco' => 'required|numeric|min:0',
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',]);
     
         $produto = new Produto();

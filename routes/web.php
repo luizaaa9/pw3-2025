@@ -55,4 +55,10 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('produtos', ProdutosController::class);
 
+
+Route::get('/carrinho' , [CarrinhoController::class, 'index']);
+Route::get('/carrinho/adicionar/{produto}', [CarrinhoController::class , 'adicionar']);
+Route::get('/carrinho/adicionar/{produto}', [CarrinhoController::class , 'remover']);
+
+
 require __DIR__ . '/auth.php';
